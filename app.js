@@ -16,7 +16,6 @@ app.post('/', function (req, res) {
  
  const Prompts = new Array("What else can I do for you?", 
                           "Is there anything else you want me to do?",
-                          "What other changes do you want to make?",
                           "Anything else?");
   
  function NextTrain(assistant) {
