@@ -46,6 +46,9 @@ app.post('/', function (req, res) {
     if (!error && response.statusCode == 200) {
         // Print out the response body
         console.log(body)
+        console.log(body.length)
+        var nPos = body.indexOf("<th>Status");
+        var strText = body.substring(nPos,body.length);
     }
   })
    
