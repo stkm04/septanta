@@ -45,10 +45,13 @@ app.post('/', function (req, res) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         // Print out the response body
-        console.log(body)
-        console.log(body.length)
+        //console.log(body);
+        console.log(body.length);
         var nPos = body.indexOf("<th>Status");
         var strText = body.substring(nPos,body.length);
+        nPos = strText.indexOf("TABLE");
+        strText = strText.substring(nPos,strText.length);
+        console.log(strText);
     }
   })
    
