@@ -4,6 +4,7 @@ process.env.DEBUG = 'actions-on-google:*';
 let Assistant = require('actions-on-google').ApiAiAssistant;
 let express = require('express');
 let bodyParser = require('body-parser');
+let request = require('request');
 
 let app = express();
 app.use(bodyParser.json({type: 'application/json'}));
@@ -23,6 +24,32 @@ app.post('/', function (req, res) {
    console.log(assistant.getRawInput());
    let LocStart = assistant.getArgument('LocStart');
    let LocDest = assistant.getArgument('LocDest');
+   
+   
+   
+   // Set the headers
+  var headers = {
+    'User-Agent':       'Super Agent/0.0.1',
+    'Content-Type':     'application/x-www-form-urlencoded'
+  }
+
+  // Configure the request
+  var options = {
+    url: 'http://app.septa.org/nta/result.php',
+    method: 'GET',
+    headers: headers,
+    qs: {'loc_a': 'Whitford', 'loc_z': 'Paoli'}
+  }
+
+  // Start the request
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+    }
+  })
+   
+   
    
    let nextPrompt = Prompts[Math.floor(Math.random() * Prompts.length)];
    assistant.ask('The next train from  '+LocStart+' to '+LocDest+' will be arriving in 10 minutes. '+nextPrompt);
